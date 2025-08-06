@@ -58,8 +58,12 @@ export default function AboutPage() {
   //   credentialId: "CERT-ID-YYYY",
   // },
   
-  const certifications = [
-  ]
+  const certifications: {
+    name: string;
+    issuer: string;
+    date: string;
+    credentialId: string;
+  }[] = []
 
   // TO ADD NEW ACHIEVEMENT: Copy this template and add it to the achievements array below
   // {
