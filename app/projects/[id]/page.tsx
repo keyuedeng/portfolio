@@ -4,10 +4,12 @@ import { Badge } from "@/components/ui/badge"
 import { ArrowLeft, ExternalLink, Github, Clock, Users } from "lucide-react"
 import { projects } from "@/lib/data"
 import { notFound } from "next/navigation"
+import React from "react"
 
-export default function ProjectPage({ params }: { params: { id: string } }) {
-  // Find the project by ID
-  const project = projects.find(project => project.id === parseInt(params.id))
+export default function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
+  // Unwrap params and find the project by ID
+  const unwrappedParams = React.use(params)
+  const project = projects.find(project => project.id === parseInt(unwrappedParams.id))
   
   // If project not found, show 404
   if (!project) {
