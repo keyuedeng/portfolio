@@ -72,8 +72,11 @@ export default function AboutPage() {
   //   icon: <IconName className="w-5 h-5" />,
   // },
   
-  const achievements = [
-  ]
+  const achievements: {
+    title: string;
+    description: string;
+    icon: React.ReactNode;
+  }[] = []
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200">
