@@ -64,7 +64,7 @@ Thanks for your patience, and I look forward to sharing my thoughts and experien
 
 **- Karen**
     `,
-    date: "2024-01-20",
+    date: "2025-08-06",
     readTime: "1 min read",
     category: "Updates",
     tags: ["Welcome", "Coming Soon"],
