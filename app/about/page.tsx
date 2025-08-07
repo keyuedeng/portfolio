@@ -9,7 +9,7 @@ export default function AboutPage() {
     Frontend: ["Typescript","Javascript","CSS", "HTML"],
     Backend: ["Python","Java","C","SQL"],
     "Tools & DevOps": ["Git"],
-    "Currently Learning": ["Next.js","React"],
+    "Currently Learning": ["Next.js","React","Tailwind CSS"],
   }
 
   // TO ADD NEW EXPERIENCE: Copy this template and add it to the experience array above
