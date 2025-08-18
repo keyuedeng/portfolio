@@ -50,6 +50,32 @@ export const projects = [
   },
   {
     id: 2,
+    title: "Todo Widget",
+    description: "A desktop todo widget built with Electron featuring pixel art design, always-on-top functionality, and local data persistence.",
+    longDescription: "A desktop todo widget built with Electron that provides a clean, always-on-top interface for managing daily tasks. The widget features a beautiful pixel art design with a transparent background and blur effect, making it blend seamlessly with your desktop while staying accessible. Users can add, complete, and delete tasks with real-time progress tracking through a visual progress bar. The widget automatically positions itself on the right side of the screen and minimizes to the system tray when closed, ensuring it's always available without cluttering the desktop. All data is persisted locally using localStorage, providing a private and fast task management experience.",
+    tools: ["Electron", "Node.js", "HTML", "CSS", "JavaScript", "localStorage"],
+    status: "Completed",
+    duration: "3 days",
+    teamSize: "Solo project",
+    image: "/todo.png",
+    githubLink: "https://github.com/keyuedeng/ToDoWidget",
+    liveLink: null,
+    keyTakeaways: [
+      "Learned to build desktop applications using Electron framework",
+      "Implemented always-on-top functionality and system tray integration",
+      "Created a frameless window with transparent background and blur effects",
+      "Built a complete desktop widget with data persistence using localStorage",
+      "Gained experience with Electron's main and renderer process architecture",
+    ],
+    challenges: [
+      "Implementing always-on-top functionality while maintaining good UX",
+      "Creating a frameless window that still allows user interaction and positioning",
+      "Managing data persistence across application restarts using localStorage",
+      "Designing a widget that integrates seamlessly with the desktop environment",
+    ],
+  },
+  {
+    id: 3,
     title: "Study Tracker",
     description: "Trackly is a minimalist study tracker app designed for students to log sessions, visualize progress, and build consistent study habits.",
     longDescription: `I'm building Trackly as a study tracker to solve a problem I've faced myself: keeping track of how much I actually study and staying consistent 
