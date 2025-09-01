@@ -78,34 +78,32 @@ export const projects = [
     id: 3,
     title: "Study Tracker",
     description: "Trackly is a minimalist study tracker app designed for students to log sessions, visualize progress, and build consistent study habits.",
-    longDescription: `I'm building Trackly as a study tracker to solve a problem I've faced myself: keeping track of how much I actually study and staying consistent 
-    with my habits. Instead of being cluttered or overwhelming, I designed Trackly to feel simple, clean, and motivating. The app gives me a dashboard where I 
-    can instantly see my total study hours, current streak, and how my time is split across subjects. I added a heatmap calendar inspired by GitHub's contributions chart, 
-    a line graph showing daily study hours, and a subject breakdown donut chart to make the data visual and engaging. When I log a new study session, I can pick the subject, 
-    add the duration, and see it reflected immediately in my stats. My goal is to make the flow as frictionless as possible, while still giving me insights into how I'm spending my time.
-    I'm building Trackly using Next.js, Tailwind, and Recharts, focusing on both design and functionality. I aim to make the app work smoothly across desktop and mobile, and it's one of my favorite 
-    projects because it represents my ability to bring together front-end design, component-driven architecture, and data visualization — all to create something I'd actually use in my own daily routine.`,
+    longDescription: `Trackly was built to tackle the challenge of staying consistent with studying. Instead of manually logging sessions, the app features 
+                  a timer system where users choose a study length and then start, pause, resume, or stop the timer. This makes tracking effortless and closer 
+                  to how study time actually happens. The dashboard provides an at-a-glance summary: total study hours, streaks, and how time is split across subjects. 
+                  Data is presented visually with a GitHub-style heatmap calendar, a line chart of daily hours, and a donut chart for subject distribution. The goal 
+                  was to keep the design clean and motivating, avoiding clutter while still providing insights into habits. Built with Next.js, Tailwind, and Recharts, 
+                  Trackly focused on responsive layouts, smooth interactions, and modular component architecture. The project highlighted skills in both front-end design
+                   and data visualization, resulting in a tool that supports productivity through clear, simple tracking.`,
     tools: ["Next.js", "JavaScript", "Tailwind CSS", "Recharts", "React", "shadcn/ui", "PostgreSQL"],
-    status: "In progress",
-    duration: "3 weeks",
+    status: "Completed",
+    duration: "1 month",
     teamSize: "Solo project",
     image: "/trackly.png",
     githubLink: "https://github.com/keyuedeng/Trackly",
     liveLink: null,
     keyTakeaways: [
-      "Learned how to structure a multi-page app with clear separation between public and private routes.",
-      "Learned how to build a component-driven UI in React/Next.js and structure a dashboard with reusable components.",
-      "Gained hands-on experience with Tailwind CSS and shadcn/ui for rapid styling and responsive design.",
-      "Implemented interactive charts using Recharts (line graphs, donut charts, heatmap calendar) to visualize study data.",
-      "Developed a PostgreSQL database to store and manage study session data, gaining practical experience with database design and querying.",
-      "Understood the full cycle of CRUD operations in a full-stack app.",
-      "Strengthened skills in responsive design, ensuring the app worked smoothly across mobile and desktop."
+      "Architected a full-stack web application with Next.js 15 and PostgreSQL, integrating App Router with custom API routes to handle session data securely and efficiently",
+      "Leveraged the Recharts library to implement diverse data visualizations, including time-series line charts, contribution-style heatmaps, and donut charts, ensuring interactive and performant rendering.",
+      "Applied React state management and custom hooks to enable dynamic filtering, real-time updates, and seamless synchronization between the client UI and backend APIs.",
+      "Designed and normalized a PostgreSQL schema with relational integrity and constraints, optimizing queries for scalability and accurate session tracking.",
+      "Built responsive, accessible UI components using Tailwind CSS and shadcn/ui, balancing modern styling with consistent cross-device usability.",
     ],
     challenges: [
-      "Handling state management (like toggling mobile menus, tracking filters, or managing study sessions).",
-      "Ensuring responsiveness across desktop and mobile without breaking layouts.",
-      "Handling authentication and protected routes in Next.js effectively.",
-      "Implementing form handling and validation for adding and editing study sessions smoothly.",
+      "Debugged chart re-render issues in Recharts and optimized performance for frequent state updates.",
+      "Balanced clean UI design with responsive layouts for data-heavy components like heatmaps and charts.",
+      "Implemented dynamic filtering logic that updated charts instantly without triggering full reloads.",
+      "Tuned SQL queries to balance accuracy of streaks and summaries with database performance.",
     ],
   },
 ] 
