@@ -6,10 +6,10 @@ import { ArrowLeft, Download, Award, Briefcase, GraduationCap, Code, Linkedin, G
 
 export default function AboutPage() {
   const skills = {
-    Frontend: ["Typescript","Javascript","CSS", "HTML"],
-    Backend: ["Python","Java","C","SQL"],
-    "Tools & DevOps": ["Git"],
-    "Currently Learning": ["Next.js","React","Tailwind CSS"],
+    Frontend: ["React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS", "Tailwind CSS", "shadcn/ui", "Recharts"],
+    Backend: ["Node.js", "Express", "Python", "FastAPI", "PostgreSQL", "Prisma ORM"],
+    "AI & APIs": ["OpenAI API", "Deepgram API", "LLM Integration"],
+    "Tools & Frameworks": ["Electron", "Git", "ESLint", "Pydantic", "Asyncio", "Rich"],
   }
 
   // TO ADD NEW EXPERIENCE: Copy this template and add it to the experience array above
@@ -117,10 +117,11 @@ export default function AboutPage() {
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">About Me</h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Pursuing a Bachelor of Science (Computing and Software Systems) at The University of Melbourne, 
-              I have experience building AI-powered tools, developing with modern Python practices, and creating 
-              modular, secure systems. I have contributed to real-world projects through student organisations, 
-              combining technical skills with teamwork, communication, and a drive to deliver solutions with positive impact.
+              Hey! I'm Karen, a Computing and Software Systems student at the University of Melbourne. I spend most of my 
+              free time building projects I actually want to use — like a study tracker to keep myself accountable, or a 
+              journaling app that helps me understand my own thoughts better. I'm really interested in AI and how it can make 
+              tools feel more intuitive, but I also care a lot about making things that look good and feel nice to use. I think 
+              the best projects happen when you're solving a problem you've actually experienced yourself.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild>
