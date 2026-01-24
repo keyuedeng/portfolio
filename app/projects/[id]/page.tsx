@@ -61,7 +61,18 @@ export default function ProjectPage({ params }: { params: Promise<{ id: string }
               </div>
               
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">{project.title}</h1>
-              <p className="text-xl text-gray-600 mb-8">{project.longDescription}</p>
+              <div className="text-xl text-gray-600 mb-8 space-y-4">
+                {project.longDescription.split('\n\n').map((paragraph, idx) => (
+                  <p key={idx}>
+                    {paragraph.split(/(\*\*.*?\*\*)/g).map((part, i) => {
+                      if (part.startsWith('**') && part.endsWith('**')) {
+                        return <strong key={i} className="font-semibold text-gray-900">{part.slice(2, -2)}</strong>;
+                      }
+                      return <span key={i}>{part}</span>;
+                    })}
+                  </p>
+                ))}
+              </div>
               
               <div className="flex gap-4">
                 <Button asChild size="lg">
