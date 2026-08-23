@@ -92,13 +92,27 @@ export default function ProjectPage({ params }: { params: Promise<{ id: string }
               </div>
             </div>
             
-            <div className="aspect-video rounded-lg overflow-hidden shadow-2xl">
-              <img
-                src={project.image || "/placeholder.svg"}
-                alt={project.title}
-                className="w-full h-full object-contain bg-gray-50"
-              />
-            </div>
+            {project.images && project.images.length > 1 ? (
+              <div className="flex flex-col gap-4">
+                {project.images.map((src, idx) => (
+                  <div key={idx} className="aspect-video rounded-lg overflow-hidden shadow-2xl">
+                    <img
+                      src={src}
+                      alt={`${project.title} screenshot ${idx + 1}`}
+                      className="w-full h-full object-contain bg-gray-50"
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="aspect-video rounded-lg overflow-hidden shadow-2xl">
+                <img
+                  src={project.image || "/placeholder.svg"}
+                  alt={project.title}
+                  className="w-full h-full object-contain bg-gray-50"
+                />
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -172,6 +186,23 @@ export default function ProjectPage({ params }: { params: Promise<{ id: string }
           </div>
         </div>
       </section>
+
+      {/* Future Features */}
+      {project.futureFeatures && project.futureFeatures.length > 0 && (
+        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">What's Next</h2>
+            <ul className="space-y-3">
+              {project.futureFeatures.map((feature, idx) => (
+                <li key={idx} className="flex items-start">
+                  <span className="text-emerald-600 mr-3 mt-1.5 text-lg">•</span>
+                  <span className="text-gray-600">{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
 
       {/* CTA Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-slate-700 to-slate-800">

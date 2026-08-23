@@ -26,7 +26,7 @@
 //   featured: true or false,
 // },
 
-export const blogPosts = [
+const blogPostsData = [
   {
     id: 1,
     title: "Building MedCase: My First Hackathon Experience",
@@ -109,4 +109,44 @@ If you're interested in checking out the project, you can find it on [Devpost](h
     tags: ["Hackathon", "Full-Stack", "AI", "Team Work"],
     featured: true,
   },
-] 
+  {
+    id: 2,
+    title: "What My Internship Taught Me About Real Projects",
+    excerpt: "University hands you a defined problem, a rubric, and a discussion board to answer every question. Real projects don't work like that — some reflections from building a Splunk add-on for Cisco firewall data.",
+    content: `
+# No Rubric, No Roadmap: What My Internship Taught Me About Real Projects
+
+Something that's really cemented since I started my internship is how much uni hands to us on a silver platter. A whole three pages of specs, a defined problem, defined success criteria with a rubric, and an Ed Discussion page to clarify questions for you basically 24/7.
+
+I've realized that real projects don't work like that. You get a direction and you're expected to figure out the rest — including what the problem actually is, what tools to use, and what "done" looks like.
+
+## Starting Without Knowing Where to Start
+
+For the past couple of weeks, I've been working on a Splunk add-on that pulls Cisco firewall data into a dashboard. I didn't really know what I was doing when I started, or even how to start. There's a temptation to keep reading docs until you understand every single line, but I'm not sure anyone actually gets to that point.
+
+My guess is that even senior engineers work with stuff they don't fully understand all the time — new frameworks, vendor APIs, codebases someone else wrote eight years ago. I think the difference is that they've built up enough pattern recognition to know what's worth digging into and what isn't.
+
+## Piecing It Together
+
+So at some point I just started. I followed the Splunk UCC docs, read whatever scaffold it generated, looked at the FMC API, and pieced it together from there. Each step kind of revealed the next. Not sure if that was the right approach, but it worked.
+
+## What Surprised Me
+
+What was surprising is how fast it went once I stopped trying to plan every single step. You just tackle the first item in front of you, and somehow things come together.
+
+Repo: [https://lnkd.in/ghfd24Q5](https://lnkd.in/ghfd24Q5)
+
+**- Karen**
+    `,
+    date: "2026-08-23",
+    readTime: "2 min read",
+    category: "Reflections",
+    tags: ["Internship", "Splunk", "Cisco", "Reflections"],
+    featured: true,
+  },
+]
+
+// Newest posts first, regardless of the order they're added above
+export const blogPosts = [...blogPostsData].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+)

@@ -23,17 +23,36 @@
 //   ],
 // },
 
-export const projects = [
+export type Project = {
+  id: number
+  title: string
+  description: string
+  longDescription: string
+  tools: string[]
+  status: string
+  duration: string
+  teamSize: string
+  image: string
+  images?: string[]
+  githubLink: string
+  liveLink: string | null
+  keyTakeaways: string[]
+  challenges: string[]
+  futureFeatures?: string[]
+}
+
+export const projects: Project[] = [
   {
     id: 1,
     title: "Moire",
     description: "A personal reflection system that transforms journal entries into a living semantic map of thoughts, emotions, and identity using NLP and graph-based representations.",
-    longDescription: "Moire is a **personal reflection system** that transforms unstructured journal entries into a living **semantic map** of thoughts, emotions, habits, and identity. Instead of encouraging users to reread old entries, the system surfaces patterns over time — what themes recur, how ideas connect, and how the user's inner landscape evolves.\n\nJournal entries are processed through a **multi-stage NLP pipeline** that segments text into coherent **thematic chunks**, extracts high-level topics and sentiment, **canonicalises** those topics into persistent **conceptual nodes**, and builds **weighted connections** between them across time. The result is a **dynamic graph** where **nodes** represent meaningful concepts in the user's life and **edges** represent how those concepts **co-occur** and evolve together.\n\nThe project is driven by a core question: How can reflection support growth without forcing people to manually look backward? Rather than presenting raw logs, Moire acts as a **reflective mirror** — revealing identity, motivation, struggles, and growth as **emergent structure** rather than explicit memory recall.",
+    longDescription: "**Live at https://moire-xi.vercel.app/**\n\nMoire is a **personal reflection system** that transforms unstructured journal entries into a living **semantic map** of thoughts, emotions, habits, and identity. Instead of encouraging users to reread old entries, the system surfaces patterns over time — what themes recur, how ideas connect, and how the user's inner landscape evolves.\n\nJournal entries are processed through a **multi-stage NLP pipeline** that segments text into coherent **thematic chunks**, extracts high-level topics and sentiment, **canonicalises** those topics into persistent **conceptual nodes**, and builds **weighted connections** between them across time. The result is a **dynamic graph** where **nodes** represent meaningful concepts in the user's life and **edges** represent how those concepts **co-occur** and evolve together.\n\nThe project is driven by a core question: How can reflection support growth without forcing people to manually look backward? Rather than presenting raw logs, Moire acts as a **reflective mirror** — revealing identity, motivation, struggles, and growth as **emergent structure** rather than explicit memory recall.",
     tools: ["Next.js", "React", "JavaScript", "Tailwind CSS", "Prisma ORM", "PostgreSQL", "Clerk", "OpenAI API", "ESLint"],
     status: "Completed",
     duration: "2 months",
     teamSize: "Solo project",
-    image: "/moire.png",
+    image: "/moiremappage.png",
+    images: ["/moirejournalpage.png", "/moiremappage.png"],
     githubLink: "https://github.com/keyuedeng/moirejournal",
     liveLink: "https://moire-xi.vercel.app/",
     keyTakeaways: [
@@ -49,6 +68,12 @@ export const projects = [
       "Preserving contextual meaning while chunking entries, especially when themes reappear non-linearly",
       "Designing a graph system that evolves incrementally without regenerating or invalidating existing structure",
       "Avoiding 'therapy-bot' failure modes by constraining tone, scope, and assumptions in reflective summaries",
+    ],
+    futureFeatures: [
+      "Weekly and monthly goals/to-dos, surfaced from recurring themes in entries",
+      "Automatic resurfacing of past reminders and intentions at the right moment",
+      "A gentle check-in asking whether a recurring theme should become a goal",
+      "A short takeaway or nudge after each entry, something small in return for reflecting",
     ],
   },
   {
