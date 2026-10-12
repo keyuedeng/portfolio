@@ -1,20 +1,37 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Hanken_Grotesk, Newsreader, IBM_Plex_Mono } from "next/font/google";
+import { CursorTrail } from "@/components/cursor-trail";
+import { site } from "@/lib/site";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const hanken = Hanken_Grotesk({
+  variable: "--font-hanken",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["opsz"],
+});
+
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
-  title: "Karen Deng - Full-Stack Developer",
-  description: "Full-stack developer and computing student at University of Melbourne. Specializing in Python, Next.js, and AI integration. View my projects and experience.",
+  title: {
+    default: "Karen Deng",
+    template: "%s · Karen Deng",
+  },
+  description: site.description,
+  alternates: {
+    types: { "application/rss+xml": "/rss.xml" },
+  },
 };
 
 export default function RootLayout({
@@ -24,9 +41,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${hanken.variable} ${newsreader.variable} ${plexMono.variable}`}>
+        <CursorTrail />
         {children}
       </body>
     </html>

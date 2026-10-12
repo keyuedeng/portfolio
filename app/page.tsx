@@ -1,287 +1,124 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Code, BookOpen, User, ExternalLink, Github, Linkedin } from "lucide-react"
+import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
+import { LastPlayed } from "@/components/last-played"
+import { Plant } from "@/components/plant"
+import { Questions } from "@/components/questions"
+import { Collage } from "@/components/collage"
+import { Experience } from "@/components/experience"
 import { projects } from "@/lib/data"
 import { blogPosts } from "@/lib/blog-data"
+import { formatPostDate } from "@/lib/format"
+import { site } from "@/lib/site"
+
+// Re-render at most once a minute so "last played" stays fresh
+export const revalidate = 60
+
+const sectionLabel = "m-0 font-mono text-[13px] font-medium text-muted"
 
 export default function HomePage() {
-  // Get first 3 projects for featured section
   const featuredProjects = projects.slice(0, 3)
-  // Get first 3 blog posts for recent posts section
   const recentPosts = blogPosts.slice(0, 3)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200">
-      {/* Navigation */}
-      <nav className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-slate-700 to-slate-800 rounded-lg flex items-center justify-center">
-                <Code className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold text-gray-900">Karen Deng</span>
-            </div>
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/" className="text-gray-900 font-medium">
-                Home
-              </Link>
-              <Link href="/projects" className="text-gray-600 hover:text-gray-900 transition-colors">
-                Projects
-              </Link>
-              <Link href="/blog" className="text-gray-600 hover:text-gray-900 transition-colors">
-                Blog
-              </Link>
-              <Link href="/about" className="text-gray-600 hover:text-gray-900 transition-colors">
-                About
-              </Link>
-              <Button asChild>
-                <Link href="/contact">Contact</Link>
-              </Button>
-            </div>
-          </div>
+    <div className="min-h-screen px-4 pb-16 sm:px-6">
+      <div className="mx-auto max-w-[640px]">
+        <SiteHeader />
+        <div className="mt-7 empty:hidden">
+          <LastPlayed />
         </div>
-      </nav>
+      </div>
 
-      {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Karen Deng
+      <main className="mx-auto max-w-[640px]">
+        <section className="flex flex-wrap items-end gap-x-10 gap-y-6 pt-11 pb-8">
+          <div className="min-w-0 flex-[1_1_340px]">
+            <p className="mt-0 mb-5 font-mono text-[13px] text-muted">{site.greetings.join(", ")}</p>
+            <h1 className="m-0 font-serif text-[44px] leading-[1.05] font-normal tracking-[-0.02em] sm:text-[52px]">
+              karen deng
             </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Studying Computing and Software Systems at the University of Melbourne, 
-              I'm driven by a passion for building practical, impactful software. 
-              This portfolio showcases the projects, lessons, and ideas I've explored along the way.
+            <p className="mt-2 mb-[18px] font-mono text-xs text-muted">noun</p>
+            <ol className="m-0 flex list-decimal flex-col gap-1.5 pl-[22px]">
+              {site.definitions.map((d) => (
+                <li key={d}>{d}</li>
+              ))}
+            </ol>
+            <p className="mt-3.5 mb-0 text-[15px] text-muted">
+              <em className="font-serif text-[17px]">See also:</em>{" "}
+              <a href={site.links.github} target="_blank" rel="noreferrer">github</a>,{" "}
+              <a href={site.links.linkedin} target="_blank" rel="noreferrer">linkedin</a>,{" "}
+              <a href={site.links.email}>email</a>,{" "}
+              <a href={site.links.cv} target="_blank" rel="noreferrer">cv</a>
             </p>
-            {/* Profile Photo */}
-            <div className="flex justify-center mb-8">
-              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
-                <img
-                  src="/pfp.png"
-                  alt="Karen Deng - Full-Stack Developer"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" asChild>
-                <Link href="/projects">
-                  View My Work <ArrowRight className="ml-2 w-4 h-4" />
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
-                <Link href="/blog">
-                  Read My Journey <BookOpen className="ml-2 w-4 h-4" />
-                </Link>
-              </Button>
-            </div>
           </div>
-        </div>
-      </section>
+          <Plant />
+        </section>
 
-      {/* Featured Projects */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Featured Projects</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              A showcase of my recent work, including the challenges faced, solutions implemented, and lessons learned.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredProjects.map((project) => (
-              <Card key={project.id} className="group hover:shadow-lg transition-shadow">
-                <Link href={`/projects/${project.id}`}>
-                  <div className="aspect-video bg-gray-100 rounded-t-lg overflow-hidden">
-                    <img
-                      src={project.image || "/placeholder.svg"}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-lg mt-4">{project.title}</CardTitle>
-                      <Badge variant={project.status === "Completed" ? "default" : "secondary"} className="mt-2">{project.status}</Badge>
-                    </div>
-                    <CardDescription>{project.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="pb-4">
-                    <div className="flex flex-wrap gap-2">
-                      {project.tools.map((tool) => (
-                        <Badge key={tool} variant="outline" className="text-xs">
-                          {tool}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Link>
-                <CardContent className="pt-0">
-                  <Button variant="outline" size="sm" asChild className="w-full bg-transparent">
-                    <Link href={project.githubLink} target="_blank">
-                      <Github className="mr-2 w-3 h-3" />
-                      Git
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-          <div className="text-center mt-12">
-            <Button asChild>
-              <Link href="/projects">View All Projects</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+        <Questions items={site.questions} />
 
-      {/* Recent Blog Posts */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Latest Insights</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Documenting my learning journey, sharing lessons learned, and reflecting on the development process.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {recentPosts.map((post) => (
-              <Link key={post.id} href={`/blog/${post.id}`}>
-                <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-                  <CardHeader>
-                    <CardTitle className="text-lg line-clamp-2">{post.title}</CardTitle>
-                    <div className="flex items-center text-sm text-gray-500 space-x-4">
-                      <span>{post.date}</span>
-                      <span>{post.readTime}</span>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
-                    <div className="text-sm text-blue-600 font-medium">
-                      Read More <ArrowRight className="ml-2 w-3 h-3 inline" />
-                    </div>
-                  </CardContent>
-                </Card>
+        <Experience items={site.experience} cv={site.links.cv} />
+
+        <section id="projects" className="border-t border-line py-10">
+          <h2 className={`${sectionLabel} mb-5`}>02 — Projects</h2>
+          <div className="flex flex-col gap-[18px]">
+            {featuredProjects.map((p) => (
+              <Link
+                key={p.id}
+                href={`/projects/${p.id}`}
+                className="group flex flex-wrap justify-between gap-x-4 no-underline"
+              >
+                <span className="font-medium">{p.title}</span>
+                <span className="font-mono text-xs text-muted">{p.date}</span>
+                <span className="basis-full text-[15px] text-muted">{p.tagline}</span>
               </Link>
             ))}
           </div>
-          <div className="text-center mt-12">
-            <Button asChild>
-              <Link href="/blog">View All Posts</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+          <Link href="/projects" className="mt-[22px] inline-block font-mono text-[13px]">
+            all projects →
+          </Link>
+        </section>
 
-      {/* CTA Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-slate-700 to-slate-800">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Let's Connect</h2>
-          <p className="text-blue-100 mb-8 text-lg">
-            I'm always excited to collaborate on new projects and share knowledge with fellow developers.
+        <section id="writing" className="border-t border-line py-10">
+          <h2 className={`${sectionLabel} mb-1.5`}>03 — Writing &amp; notes</h2>
+          <p className="mt-0 mb-6 font-serif text-lg text-muted italic">
+            Essays, learning notes and little artifacts, growing slowly.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" asChild>
-              <Link href="/contact">
-                Get In Touch <User className="ml-2 w-4 h-4" />
+          <div className="flex flex-col gap-5">
+            {recentPosts.map((post) => (
+              <Link key={post.id} href={`/writing/${post.id}`} className="flex flex-col no-underline">
+                <span className="font-serif text-[22px] leading-[1.3]">{post.title} ↗</span>
+                <span className="font-mono text-xs text-muted">
+                  {formatPostDate(post.date)} · {post.kind} · {post.readTime}
+                </span>
               </Link>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-white border-white hover:bg-white hover:text-blue-600 bg-transparent"
-              asChild
-            >
-              <Link href="https://www.linkedin.com/in/karen-deng-795709322/" target="_blank">
-                Connect on LinkedIn <Linkedin className="ml-2 w-4 h-4" />
-              </Link>
-            </Button>
+            ))}
           </div>
-        </div>
-      </section>
+          <Link href="/writing" className="mt-[22px] inline-block font-mono text-[13px]">
+            all writing &amp; notes →
+          </Link>
+        </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="col-span-2">
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 rounded-lg overflow-hidden border border-gray-600">
-                  <img src="/pfp.png" alt="Karen Deng" className="w-full h-full object-cover" />
-                </div>
-                <span className="text-xl font-bold">Karen Deng</span>
-              </div>
-              <p className="text-gray-400 mb-4">
-                Software developer passionate about building real-world projects with purpose and impact.
-              </p>
-              <div className="flex space-x-4">
-                <Link href="https://github.com/keyuedeng" target="_blank" className="text-gray-400 hover:text-white">
-                  <Github className="w-5 h-5" />
-                </Link>
-                <Link
-                  href="https://www.linkedin.com/in/karen-deng-795709322/"
-                  target="_blank"
-                  className="text-gray-400 hover:text-white"
-                >
-                  <Linkedin className="w-5 h-5" />
-                </Link>
-              </div>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Navigation</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li>
-                  <Link href="/" className="hover:text-white">
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/projects" className="hover:text-white">
-                    Projects
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/blog" className="hover:text-white">
-                    Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/about" className="hover:text-white">
-                    About
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Connect</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li>
-                  <Link href="/contact" className="hover:text-white">
-                    Contact
-                  </Link>
-                </li>
-                <li>
-                  <Link href="mailto:keyuedeng6@gmail.com" className="hover:text-white">
-                    Email
-                  </Link>
-                </li>
-                <li>
-                  <Link href="https://www.linkedin.com/in/karen-deng-795709322/" target="_blank" className="hover:text-white">
-                    LinkedIn
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Karen Deng. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+        <section id="beliefs" className="border-t border-line py-10">
+          <h2 className={`${sectionLabel} mb-5`}>04 — Things I believe</h2>
+          <ol className="m-0 flex list-decimal flex-col gap-2 pl-6 font-serif text-xl">
+            {site.beliefs.map((b) => (
+              <li key={b}>{b}</li>
+            ))}
+          </ol>
+          {site.beliefsLink && (
+            <a href={site.beliefsLink} className="mt-3.5 inline-block text-[15px]">
+              the whole list ↗
+            </a>
+          )}
+        </section>
+
+        <section id="playground" className="border-t border-line pt-10 pb-2">
+          <h2 className={sectionLabel}>05 — Playground</h2>
+        </section>
+      </main>
+
+      <Collage items={site.collage} />
+
+      <SiteFooter className="mx-auto mt-6 max-w-[640px]" />
     </div>
   )
 }

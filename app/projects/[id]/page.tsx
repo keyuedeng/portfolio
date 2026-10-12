@@ -1,239 +1,153 @@
+import type { Metadata } from "next"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, ExternalLink, Github, Clock, Users } from "lucide-react"
-import { projects } from "@/lib/data"
 import { notFound } from "next/navigation"
-import React from "react"
+import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
+import { PageIntro } from "@/components/page-intro"
+import { Inline, RichText } from "@/components/rich-text"
+import { projects } from "@/lib/data"
 
-export default function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
-  // Unwrap params and find the project by ID
-  const unwrappedParams = React.use(params)
-  const project = projects.find(project => project.id === parseInt(unwrappedParams.id))
-  
-  // If project not found, show 404
-  if (!project) {
-    notFound()
-  }
+type Props = { params: Promise<{ id: string }> }
+
+const findProject = (id: string) => projects.find((p) => p.id === Number(id))
+
+export function generateStaticParams() {
+  return projects.map((p) => ({ id: String(p.id) }))
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const project = findProject((await params).id)
+  return project ? { title: project.title, description: project.tagline } : {}
+}
+
+const label = "m-0 mb-4 font-mono text-[13px] font-medium text-muted"
+
+function List({ items }: { items: string[] }) {
+  return (
+    <ul className="m-0 flex list-none flex-col gap-2.5 p-0 text-[16px] text-body">
+      {items.map((item) => (
+        <li key={item} className="flex gap-2.5">
+          <span aria-hidden="true" className="font-mono text-accent">↳</span>
+          <span>
+            <Inline text={item} />
+          </span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+export default async function ProjectPage({ params }: Props) {
+  const project = findProject((await params).id)
+  if (!project) notFound()
+
+  const images = project.images?.length ? project.images : [project.image]
+  const index = projects.indexOf(project)
+  const next = projects[(index + 1) % projects.length]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200">
-      {/* Navigation */}
-      <nav className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <Link href="/projects" className="flex items-center space-x-2">
-              <ArrowLeft className="w-5 h-5" />
-              <span className="font-medium">Back to Projects</span>
-            </Link>
-            <div className="flex items-center space-x-8">
-              <Link href="/blog" className="text-gray-600 hover:text-gray-900 transition-colors">
-                Blog
-              </Link>
-              <Link href="/about" className="text-gray-600 hover:text-gray-900 transition-colors">
-                About
-              </Link>
-              <Button asChild>
-                <Link href="/contact">Contact</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
+    <div className="min-h-screen px-4 pb-20 sm:px-6">
+      <div className="mx-auto max-w-[880px]">
+        <SiteHeader current="projects" />
+      </div>
 
-      {/* Project Hero */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="flex items-center gap-4 mb-6">
-                <Badge variant={project.status === "Completed" ? "default" : "secondary"}>{project.status}</Badge>
-                <div className="flex items-center text-sm text-gray-500 gap-4">
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    {project.duration}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Users className="w-4 h-4" />
-                    {project.teamSize}
-                  </div>
-                </div>
-              </div>
-              
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">{project.title}</h1>
-              <div className="text-xl text-gray-600 mb-8 space-y-4">
-                {project.longDescription.split('\n\n').map((paragraph, idx) => (
-                  <p key={idx}>
-                    {paragraph.split(/(\*\*.*?\*\*)/g).map((part, i) => {
-                      if (part.startsWith('**') && part.endsWith('**')) {
-                        return <strong key={i} className="font-semibold text-gray-900">{part.slice(2, -2)}</strong>;
-                      }
-                      return <span key={i}>{part}</span>;
-                    })}
-                  </p>
-                ))}
-              </div>
-              
-              <div className="flex gap-4">
-                <Button asChild size="lg">
-                  <Link href={project.githubLink} target="_blank">
-                    <Github className="w-5 h-5 mr-2" />
-                    View Code
-                  </Link>
-                </Button>
-                {project.liveLink && (
-                  <Button variant="outline" size="lg" asChild>
-                    <Link href={project.liveLink} target="_blank">
-                      <ExternalLink className="w-5 h-5 mr-2" />
-                      Live Demo
-                    </Link>
-                  </Button>
-                )}
-              </div>
-            </div>
-            
-            {project.images && project.images.length > 1 ? (
-              <div className="flex flex-col gap-4">
-                {project.images.map((src, idx) => (
-                  <div key={idx} className="aspect-video rounded-lg overflow-hidden shadow-2xl">
-                    <img
-                      src={src}
-                      alt={`${project.title} screenshot ${idx + 1}`}
-                      className="w-full h-full object-contain bg-gray-50"
-                    />
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="aspect-video rounded-lg overflow-hidden shadow-2xl">
-                <img
-                  src={project.image || "/placeholder.svg"}
-                  alt={project.title}
-                  className="w-full h-full object-contain bg-gray-50"
-                />
-              </div>
+      <main>
+        <div className="mx-auto max-w-column">
+          <PageIntro crumbs={[{ href: "/projects", label: "02 — projects" }, { label: project.title.toLowerCase() }]} title={project.title}>
+            <p className="m-0 font-serif text-[19px] text-muted italic">{project.tagline}</p>
+            {project.award && (
+              <p className="mt-4 mb-0 inline-flex items-center gap-2 rounded-full border border-line px-3 py-1 font-mono text-xs text-ink">
+                <span aria-hidden="true">🏆</span>
+                {project.award}
+              </p>
             )}
-          </div>
-        </div>
-      </section>
+          </PageIntro>
 
-      {/* Project Details */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12">
-            
-            {/* Tools & Technologies */}
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Tools & Technologies</h2>
-              <div className="flex flex-wrap gap-3">
-                {project.tools.map((tool) => (
-                  <Badge key={tool} variant="outline" className="text-sm py-2 px-3">
-                    {tool}
-                  </Badge>
-                ))}
+          <dl className="m-0 grid grid-cols-2 gap-x-6 gap-y-3 border-y border-line py-5 font-mono text-xs sm:grid-cols-4">
+            {[
+              ["status", project.status],
+              ["when", project.date],
+              ["took", project.duration],
+              ["team", project.teamSize],
+            ].map(([k, v]) => (
+              <div key={k}>
+                <dt className="text-faint">{k}</dt>
+                <dd className="m-0 text-ink">{v.toLowerCase()}</dd>
               </div>
-            </div>
+            ))}
+          </dl>
 
-            {/* Project Info */}
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Project Overview</h2>
-              <div className="space-y-4 text-gray-600">
-                <div>
-                  <span className="font-semibold text-gray-900">Status:</span> {project.status}
-                </div>
-                <div>
-                  <span className="font-semibold text-gray-900">Duration:</span> {project.duration}
-                </div>
-                <div>
-                  <span className="font-semibold text-gray-900">Team Size:</span> {project.teamSize}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Key Takeaways & Challenges */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12">
-            
-            {/* Key Takeaways */}
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Key Takeaways</h2>
-              <ul className="space-y-3">
-                {project.keyTakeaways.map((takeaway, idx) => (
-                  <li key={idx} className="flex items-start">
-                    <span className="text-blue-600 mr-3 mt-1.5 text-lg">•</span>
-                    <span className="text-gray-600">{takeaway}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Challenges Overcome */}
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Challenges Overcome</h2>
-              <ul className="space-y-3">
-                {project.challenges.map((challenge, idx) => (
-                  <li key={idx} className="flex items-start">
-                    <span className="text-orange-600 mr-3 mt-1.5 text-lg">•</span>
-                    <span className="text-gray-600">{challenge}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Future Features */}
-      {project.futureFeatures && project.futureFeatures.length > 0 && (
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">What's Next</h2>
-            <ul className="space-y-3">
-              {project.futureFeatures.map((feature, idx) => (
-                <li key={idx} className="flex items-start">
-                  <span className="text-emerald-600 mr-3 mt-1.5 text-lg">•</span>
-                  <span className="text-gray-600">{feature}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      )}
-
-      {/* CTA Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-slate-700 to-slate-800">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Interested in This Project?</h2>
-          <p className="text-blue-100 mb-8 text-lg">
-            Check out the code or see it in action!
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" asChild>
-              <Link href={project.githubLink} target="_blank">
-                <Github className="mr-2 w-5 h-5" />
-                View on GitHub
-              </Link>
-            </Button>
+          <p className="mt-5 mb-0 flex flex-wrap gap-x-5 gap-y-1 font-mono text-[13px]">
             {project.liveLink && (
-              <Button
-                size="lg"
-                variant="outline"
-                className="text-white border-white hover:bg-white hover:text-blue-600 bg-transparent"
-                asChild
-              >
-                <Link href={project.liveLink} target="_blank">
-                  <ExternalLink className="mr-2 w-5 h-5" />
-                  Live Demo
-                </Link>
-              </Button>
+              <a href={project.liveLink} target="_blank" rel="noreferrer">live ↗</a>
             )}
-          </div>
+            {project.devpostLink && (
+              <a href={project.devpostLink} target="_blank" rel="noreferrer">devpost ↗</a>
+            )}
+            {project.githubLink && (
+              <a href={project.githubLink} target="_blank" rel="noreferrer">code ↗</a>
+            )}
+          </p>
         </div>
-      </section>
+
+        <div className="mx-auto mt-10 flex max-w-[880px] flex-col gap-6">
+          {images.map((src, i) => (
+            <figure key={src} className="m-0 overflow-hidden rounded-[10px] border border-line bg-well">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={src} alt={`${project.title} screenshot ${i + 1}`} className="block h-auto w-full" />
+            </figure>
+          ))}
+        </div>
+
+        <div className="mx-auto max-w-column">
+          <section className="py-10">
+            <h2 className={label}>about</h2>
+            <RichText text={project.longDescription} className="text-body" />
+          </section>
+
+          <section className="border-t border-line py-10">
+            <h2 className={label}>stack</h2>
+            {project.stackGroups ? (
+              <dl className="m-0 flex flex-col gap-3 text-[15px] text-body">
+                {project.stackGroups.map((g) => (
+                  <div key={g.label} className="flex flex-wrap gap-x-4">
+                    <dt className="w-24 flex-none font-mono text-xs leading-[1.9] text-faint">{g.label}</dt>
+                    <dd className="m-0 min-w-0 flex-[1_1_300px]">{g.items}</dd>
+                  </div>
+                ))}
+              </dl>
+            ) : (
+              <p className="m-0 font-mono text-[13px] text-body">
+                {project.tools.map((t) => t.toLowerCase()).join(" · ")}
+              </p>
+            )}
+          </section>
+
+          <section className="border-t border-line py-10">
+            <h2 className={label}>what I learned</h2>
+            <List items={project.keyTakeaways} />
+          </section>
+
+          <section className="border-t border-line py-10">
+            <h2 className={label}>what was hard</h2>
+            <List items={project.challenges} />
+          </section>
+
+          {project.futureFeatures && project.futureFeatures.length > 0 && (
+            <section className="border-t border-line py-10">
+              <h2 className={label}>what&apos;s next</h2>
+              <List items={project.futureFeatures} />
+            </section>
+          )}
+
+          <nav aria-label="More projects" className="flex flex-wrap justify-between gap-4 border-t border-line pt-8 font-mono text-[13px]">
+            <Link href="/projects">← all projects</Link>
+            {next.id !== project.id && <Link href={`/projects/${next.id}`}>next: {next.title.toLowerCase()} →</Link>}
+          </nav>
+        </div>
+      </main>
+
+      <SiteFooter className="mx-auto mt-[72px] max-w-[880px]" />
     </div>
   )
-} 
+}

@@ -21,12 +21,34 @@
 //   `,
 //   date: "YYYY-MM-DD",
 //   readTime: "X min read",
+//   kind: "essay" | "note" | "artifact",
 //   category: "Category Name",
 //   tags: ["Tag1", "Tag2", "Tag3"],
 //   featured: true or false,
 // },
 
-const blogPostsData = [
+export type PostKind = "essay" | "note" | "artifact"
+
+export const postKinds: { id: PostKind; label: string }[] = [
+  { id: "essay", label: "essays" },
+  { id: "note", label: "notes" },
+  { id: "artifact", label: "artifacts" },
+]
+
+export type BlogPost = {
+  id: number
+  title: string
+  excerpt: string
+  content: string
+  date: string
+  readTime: string
+  kind: PostKind
+  category: string
+  tags: string[]
+  featured: boolean
+}
+
+const blogPostsData: BlogPost[] = [
   {
     id: 1,
     title: "Building MedCase: My First Hackathon Experience",
@@ -105,6 +127,7 @@ If you're interested in checking out the project, you can find it on [Devpost](h
     `,
     date: "2025-01-15",
     readTime: "6 min read",
+    kind: "essay",
     category: "Projects",
     tags: ["Hackathon", "Full-Stack", "AI", "Team Work"],
     featured: true,
@@ -140,6 +163,7 @@ Repo: [https://lnkd.in/ghfd24Q5](https://lnkd.in/ghfd24Q5)
     `,
     date: "2026-08-23",
     readTime: "2 min read",
+    kind: "note",
     category: "Reflections",
     tags: ["Internship", "Splunk", "Cisco", "Reflections"],
     featured: true,
