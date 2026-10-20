@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { PageIntro } from "@/components/page-intro"
+import { LikeButton } from "@/components/like-button"
 import { blogPosts } from "@/lib/blog-data"
 import { formatPostDate } from "@/lib/format"
 
@@ -85,6 +86,8 @@ export default async function PostPage({ params }: Props) {
               {body}
             </ReactMarkdown>
           </article>
+
+          <LikeButton postId={post.id} />
 
           <nav aria-label="More writing" className="mt-8 flex flex-wrap justify-between gap-4 border-t border-line pt-8 font-mono text-[13px]">
             <Link href="/writing">← all writing</Link>
