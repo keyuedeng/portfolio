@@ -168,6 +168,66 @@ Repo: [https://lnkd.in/ghfd24Q5](https://lnkd.in/ghfd24Q5)
     tags: ["Internship", "Splunk", "Cisco", "Reflections"],
     featured: true,
   },
+  {
+    id: 3,
+    title: "Sorry Pluto: on naming things, and being named",
+    excerpt: "Categories aren't just descriptions of the world, they're decisions. What building Moiré's theme-merging taught me about who gets to name whom.",
+    content: `
+# Sorry Pluto: on naming things, and being named
+
+In 2006, Pluto stopped being a planet. Nothing about Pluto changed. A room of astronomers voted on what the word “planet” should mean, and a rock six billion kilometres away moved categories overnight. Textbooks were reprinted and kids who had memorised nine planets had to shift to one less.
+
+![Planets drifting through space](/space-planets.gif)
+
+Pluto didn’t mind. Though people often do. In 2013, the DSM-5 (a manual psychiatrists use to diagnose mental health conditions) folded Asperger’s syndrome into a single autism spectrum. For more than 37.2 million people, a word they had built part of their identity around had stopped existing on paper. Just like Pluto, nothing about them had changed. The category boundary simply moved.
+
+We like to think of categories as descriptions of the world. They’re also decisions. Someone decides where one thing ends and another begins, and that decision shapes what people can see, count, and say about themselves.
+
+I didn’t expect to run into this whilst building a journal app.
+
+## Every merge is a claim
+
+Moiré reads your journal entries and draws a map of your mind. It pulls out what themes you come back to in writing, and each theme becomes a node on your map. But the hard part here isn’t about finding themes. That’s easy. It’s how we decide if two themes are in actuality the same one.
+
+If I write about feeling “overwhelm” on Monday and “fatigue” on Thursday, should they merge to one node, or stay separate as two? If they merge, the map is telling me that in my life, these are one thing. If they stay apart, it’s telling me they’re different, and perhaps that I should notice the difference. Either way, the software makes a claim about who I am.
+
+In most systems, merging near-duplicates is invisible data cleaning. But in Moiré, it is the product. Because every merge decision, thus, becomes a small act of naming, made on behalf of someone who never sees how it happens.
+
+## How the system decides
+
+Under the hood, each new theme is turned into an embedding: a list of 1,536 numbers that places a phrase somewhere in the “meaning space”. Phrases used in similar ways end up near each other. So to decide whether a new theme belongs to an existing node, Moiré measures the angle between their embeddings with cosine similarity, a score where 1 means pointing the same way and 0 means unrelated.
+
+Then it sorts the result into three bands:
+
+| Similarity to the closest node | What happens |
+| --- | --- |
+| 0.70 or above | Merge automatically |
+| 0.55 to 0.70 | Ask an LLM to judge |
+| Below 0.55 | Create a new node |
+
+The middle band exists because embeddings have a blind spot. They measure what words are about, and not what they mean. “Anxiety” and “calm” are unequivocally poles apart. But because they are often spoken in the same sentences, they sit much closer in the meaning space than you would think. So do “self care” and “growth”, which share a whole genre of wellness writing. Numerically, they look like neighbours. But to you or me, they’re different things.
+
+So what happens in this uncertain zone? LLM acts as judge - with strict rules: merge only true synonyms, or a phrase and a more specific version of it; don’t merge opposites; don’t merge across domains, like work and relationships; don’t merge emotion with a behaviour. Broad similarity is NOT enough.
+
+These rules might just seem like “prompt engineering”, but in a journalling app, they’re really a theory of the self. “Don’t merge an emotion with a behaviour” makes a claim about what a person is: that what you feel and what you do are not the same thing, even when one keeps following the other. Tiredness happens to you. Avoidance is something you do. The gap between them is small, but it’s the only place where choice lives. A map that merged them would quietly teach you that you are your moods, that being tired and avoiding things are one fixed part of who you are. A map that keeps them apart leaves room for the possibility that one could change while the other doesn’t.
+
+## Two levels of naming
+
+Moiré actually names things at two levels. At the level of individual themes, it splits. A vague map of your mind is useless, so it keeps themes apart unless it's confident they're the same. But once a theme has come up three times, it gets sorted into one of eight broad categories: emotional state, thought pattern, motivation, habits, relationships, interests, self-concept and wellbeing. That layer is pure lumping. Dozens of specific themes collapse into a handful of buckets, so you can step back and see the overall shape. The same app splits finely so you can recognise yourself, then lumps coarsely so you can see a pattern.
+
+That's the part I keep coming back to. The thresholds aren't neutral settings. 0.70 and 0.55 encode how much a system trusts surface similarity, and the judge's rules encode what its builder thinks is worth distinguishing. Change those numbers and you change what the map says about a person.
+
+Right now, three parties shape every node on someone's map. The model suggests the name. My rules decide whether it merges. And the person it describes, the only one who actually knows whether overwhelm and fatigue are the same thing in their life, has no say at all.
+
+The astronomers at least took a vote. The fix I want to build is a simple one: let people merge and split their own nodes, and treat every correction as evidence about where my rules got them wrong. If naming is power, the people being named should hold some of it.
+    `,
+    date: "2026-10-21",
+    readTime: "5 min read",
+    kind: "essay",
+    category: "Projects",
+    tags: ["Moiré", "Embeddings", "LLMs", "Design"],
+    featured: true,
+  },
 ]
 
 // Newest posts first, regardless of the order they're added above

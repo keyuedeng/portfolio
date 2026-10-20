@@ -64,6 +64,19 @@ export default async function PostPage({ params }: Props) {
                 code: ({ children }) => (
                   <code className="rounded bg-well px-1 py-0.5 font-mono text-[0.8em]">{children}</code>
                 ),
+                img: ({ src, alt }) => (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={typeof src === "string" ? src : undefined} alt={alt ?? ""} className="my-2 block w-full rounded border border-line" />
+                ),
+                table: ({ children }) => (
+                  <div className="mt-0 mb-5 overflow-x-auto">
+                    <table className="w-full border-collapse font-sans text-[15px]">{children}</table>
+                  </div>
+                ),
+                th: ({ children }) => (
+                  <th className="border-b border-line py-2 pr-4 text-left font-mono text-[12px] font-medium text-muted">{children}</th>
+                ),
+                td: ({ children }) => <td className="border-b border-line py-2 pr-4 align-top">{children}</td>,
                 blockquote: ({ children }) => (
                   <blockquote className="my-6 ml-0 border-l-2 border-accent pl-5 italic">{children}</blockquote>
                 ),
