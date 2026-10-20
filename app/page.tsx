@@ -85,7 +85,7 @@ export default function HomePage() {
           <div className="flex flex-col gap-5">
             {recentPosts.map((post) => (
               <Link key={post.id} href={`/writing/${post.id}`} className="flex flex-col no-underline">
-                <span className="font-serif text-[22px] leading-[1.3]">{post.title} ↗</span>
+                <span className="font-serif text-[22px] leading-[1.3]">{post.title} ↗︎</span>
                 <span className="font-mono text-xs text-muted">
                   {formatPostDate(post.date)} · {post.kind} · {post.readTime}
                 </span>
@@ -106,7 +106,7 @@ export default function HomePage() {
           </ol>
           {site.beliefsLink && (
             <a href={site.beliefsLink} className="mt-3.5 inline-block text-[15px]">
-              the whole list ↗
+              the whole list ↗︎
             </a>
           )}
         </section>

@@ -70,7 +70,7 @@ export const site = {
     "Do it even if you don't feel ready.",
     "The best projects solve a problem you've actually had yourself.",
   ],
-  // Set to a URL to show a "the whole list ↗" link under the beliefs
+  // Set to a URL to show a "the whole list ↗︎" link under the beliefs
   beliefsLink: null as string | null,
 
   // Playground collage. `x`/`y` are starting positions on a 1040×460 board;

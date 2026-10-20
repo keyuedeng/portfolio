@@ -37,7 +37,7 @@ export function WritingList({ posts }: { posts: BlogPost[] }) {
           <div className="flex min-w-0 flex-[1_1_400px] flex-col gap-5">
             {g.posts.map((post) => (
               <Link key={post.id} href={`/writing/${post.id}`} className="flex flex-col no-underline">
-                <span className="font-serif text-[22px] leading-[1.3]">{post.title} ↗</span>
+                <span className="font-serif text-[22px] leading-[1.3]">{post.title} ↗︎</span>
                 <span className="font-mono text-xs text-muted">
                   {formatPostDate(post.date, false)} · {post.kind} · {post.readTime}
                 </span>

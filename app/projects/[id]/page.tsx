@@ -79,13 +79,13 @@ export default async function ProjectPage({ params }: Props) {
 
           <p className="mt-5 mb-0 flex flex-wrap gap-x-5 gap-y-1 font-mono text-[13px]">
             {project.liveLink && (
-              <a href={project.liveLink} target="_blank" rel="noreferrer">live ↗</a>
+              <a href={project.liveLink} target="_blank" rel="noreferrer">live ↗︎</a>
             )}
             {project.devpostLink && (
-              <a href={project.devpostLink} target="_blank" rel="noreferrer">devpost ↗</a>
+              <a href={project.devpostLink} target="_blank" rel="noreferrer">devpost ↗︎</a>
             )}
             {project.githubLink && (
-              <a href={project.githubLink} target="_blank" rel="noreferrer">code ↗</a>
+              <a href={project.githubLink} target="_blank" rel="noreferrer">code ↗︎</a>
             )}
           </p>
         </div>

@@ -51,7 +51,7 @@ export function Experience({ items, cv }: { items: ExperienceItem[]; cv: string 
         })}
       </TimelineScroller>
       <a href={cv} target="_blank" rel="noreferrer" className="mt-[18px] inline-block font-mono text-[13px]">
-        full cv ↗
+        full cv ↗︎
       </a>
     </section>
   )
