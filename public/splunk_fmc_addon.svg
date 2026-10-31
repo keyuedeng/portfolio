@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Helvetica, Arial, sans-serif">
+  <rect width="800" height="600" fill="#f7f8fa"/>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6b7785"/></marker></defs>
+  <text x="40" y="58" font-size="22" font-weight="bold" fill="#1f2d3d">TA-cisco-fmc</text>
+  <text x="40" y="82" font-size="13" fill="#6b7785">Cisco Secure Firewall Management Center → Splunk</text>
+  <rect x="40" y="130" width="200" height="300" rx="10" fill="#fff" stroke="#c9d1db"/>
+  <text x="140" y="160" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2d3d">FMC REST API</text>
+  <g font-family="Menlo, monospace" font-size="11" fill="#3d4b5a">
+    <rect x="58" y="180" width="164" height="36" rx="6" fill="#eef3f8"/><text x="70" y="203">/auth/generatetoken</text>
+    <rect x="58" y="232" width="164" height="36" rx="6" fill="#eef3f8"/><text x="70" y="255">/health/alerts</text>
+    <rect x="58" y="284" width="164" height="36" rx="6" fill="#eef3f8"/><text x="70" y="307">/devices/devicerecords</text>
+    <rect x="58" y="336" width="164" height="36" rx="6" fill="#eef3f8"/><text x="70" y="359">/audit/auditrecords</text>
+  </g>
+  <text x="140" y="405" text-anchor="middle" font-size="11" fill="#6b7785">per domain UUID</text>
+  <rect x="300" y="130" width="200" height="300" rx="10" fill="#fff" stroke="#c9d1db"/>
+  <text x="400" y="160" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2d3d">Add-on (UCC)</text>
+  <g font-size="12" fill="#3d4b5a">
+    <rect x="318" y="180" width="164" height="36" rx="6" fill="#fdf1e6"/><text x="330" y="203">encrypted accounts</text>
+    <rect x="318" y="232" width="164" height="36" rx="6" fill="#fdf1e6"/><text x="330" y="255">domain dropdown handler</text>
+    <rect x="318" y="284" width="164" height="36" rx="6" fill="#fdf1e6"/><text x="330" y="307">3 modular inputs</text>
+    <rect x="318" y="336" width="164" height="36" rx="6" fill="#fdf1e6"/><text x="330" y="359">shared fmc_utils</text>
+  </g>
+  <text x="400" y="405" text-anchor="middle" font-size="11" fill="#6b7785">polls every 300s</text>
+  <rect x="560" y="130" width="200" height="300" rx="10" fill="#fff" stroke="#c9d1db"/>
+  <text x="660" y="160" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2d3d">Splunk</text>
+  <g font-family="Menlo, monospace" font-size="11" fill="#3d4b5a">
+    <rect x="578" y="180" width="164" height="30" rx="6" fill="#eaf5ec"/><text x="590" y="200">cisco:fmc:health</text>
+    <rect x="578" y="218" width="164" height="30" rx="6" fill="#eaf5ec"/><text x="590" y="238">cisco:fmc:devices</text>
+    <rect x="578" y="256" width="164" height="30" rx="6" fill="#eaf5ec"/><text x="590" y="276">cisco:fmc:audit</text>
+  </g>
+  <rect x="578" y="300" width="164" height="110" rx="6" fill="#f2f4f7"/>
+  <rect x="590" y="312" width="66" height="34" rx="4" fill="#fff"/><text x="623" y="335" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2d3d">12</text>
+  <rect x="664" y="312" width="66" height="34" rx="4" fill="#fff"/><text x="697" y="335" text-anchor="middle" font-size="16" font-weight="bold" fill="#c0392b">3</text>
+  <circle cx="616" cy="378" r="20" fill="#5cb85c"/><path d="M616 378L616 358A20 20 0 0 1 635 384z" fill="#d9534f"/><path d="M616 378L635 384A20 20 0 0 1 628 394z" fill="#f0ad4e"/>
+  <g fill="#d3d9e0"><rect x="648" y="362" width="82" height="6" rx="3"/><rect x="648" y="375" width="70" height="6" rx="3"/><rect x="648" y="388" width="76" height="6" rx="3"/></g>
+  <g stroke="#6b7785" stroke-width="2" marker-end="url(#a)"><line x1="244" y1="280" x2="294" y2="280"/><line x1="504" y1="280" x2="554" y2="280"/></g>
+  <text x="400" y="500" text-anchor="middle" font-size="13" fill="#6b7785">device inventory · health alerts · audit trail · multi-domain</text>
+</svg>
